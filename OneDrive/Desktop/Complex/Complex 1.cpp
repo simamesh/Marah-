@@ -29,6 +29,21 @@ Complex Complex::operator-(const Complex& andereZahl) const {
     double diffReal = realteil - andereZahl.realteil;
     double diffImag = imaginaerteil - andereZahl.imaginaerteil;
     return Complex(diffReal, diffImag);
+
+}
+  std::ostream& operator<<(std::ostream& os, const Complex& complex) {
+    os << complex.realteil;
+    if (complex.imaginaerteil >= 0.0)
+        os << " + " << complex.imaginaerteil << "i";
+    else
+        os << " - " << -complex.imaginaerteil << "i";
+    return os;
+}
+
+  std::istream& operator>>(std::istream& is, Complex& complex) {
+   
+    is >> complex.realteil >> complex.imaginaerteil;
+    return is;
 }
 
 
