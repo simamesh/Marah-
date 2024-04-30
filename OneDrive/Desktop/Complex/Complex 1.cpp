@@ -31,6 +31,17 @@ Complex Complex::operator-(const Complex& andereZahl) const {
     return Complex(diffReal, diffImag);
 
 }
+
+{
+
+    Complex Complex::operator/(const Complex & other) const {
+        double divReal = (realteil * andere.realteil + imaginaerteil * andere.imaginaerteil) /
+            (andere.realteil * andere.realteil + andere.imaginaerteil * andere.imaginaerteil);
+        double divImag = (imaginaerteil * andere.realteil - realteil * andere.imaginaerteil) /
+            (andere.realteil * andere.realteil + andere.imaginaerteil * andere.imaginaerteil);
+        return Complex(divReal, divImag);
+    }
+
   std::ostream& operator<<(std::ostream& os, const Complex& complex) {
     os << complex.realteil;
     if (complex.imaginaerteil >= 0.0)
