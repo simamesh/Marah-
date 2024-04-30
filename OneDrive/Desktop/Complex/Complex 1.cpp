@@ -32,30 +32,35 @@ Complex Complex::operator-(const Complex& andereZahl) const {
 
 }
 
-{
 
-    Complex Complex::operator/(const Complex & other) const {
-        double divReal = (realteil * andere.realteil + imaginaerteil * andere.imaginaerteil) /
-            (andere.realteil * andere.realteil + andere.imaginaerteil * andere.imaginaerteil);
-        double divImag = (imaginaerteil * andere.realteil - realteil * andere.imaginaerteil) /
-            (andere.realteil * andere.realteil + andere.imaginaerteil * andere.imaginaerteil);
-        return Complex(divReal, divImag);
-    }
 
-  std::ostream& operator<<(std::ostream& os, const Complex& complex) {
+ }
+// oder 
+    Complex Complex::operator/(const Complex& andereZahl) const {
+        if (andereZahl.getRealteil() == 0 && andereZahl.getImaginaerteil() == 0) {
+            throw std::invalid_argument("Division durch komplexe Zahl 0");
+        }
+        double nenner = andereZahl.getRealteil() * andereZahl.getRealteil() + andereZahl.getImaginaerteil() * andereZahl.getImaginaerteil();
+        double ergebnisReal = (realteil * andereZahl.getRealteil() + imaginaerteil * andereZahl.getImaginaerteil()) / nenner;
+        double ergebnisImaginaer = (imaginaerteil * andereZahl.getRealteil() - realteil * andereZahl.getImaginaerteil()) / nenner;
+        return Complex(ergebnisReal, ergebnisImaginaer);
+  }
+
+
+   std::ostream& operator<<(std::ostream& os, const Complex& complex) {
     os << complex.realteil;
     if (complex.imaginaerteil >= 0.0)
         os << " + " << complex.imaginaerteil << "i";
     else
         os << " - " << -complex.imaginaerteil << "i";
     return os;
-}
+   }
 
   std::istream& operator>>(std::istream& is, Complex& complex) {
    
     is >> complex.realteil >> complex.imaginaerteil;
     return is;
-}
+  }
 
 
 
@@ -63,6 +68,18 @@ Complex Complex::operator-(const Complex& andereZahl) const {
 
 
 int main() {
+    try {
+        Complex z1(4.0, 2.0);
+        Complex z2(0.0, 0.0);
+
+        Complex result = z1 / z2;
+        std::cout << "Ergebnis der Division: " << result << std::endl;
+    }
+    catch (const std::invalid_argument& e) {
+        std::cout << "Fehler bei der Division: " << e.what() << std::endl;
+
+    }
+    return 0;
     
         
 
