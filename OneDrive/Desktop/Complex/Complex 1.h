@@ -16,6 +16,10 @@ public:
     Complex operator+(const Complex& andereZahl) const;
     Complex operator-(const Complex& andereZahl) const;
 
+
+    friend std::ostream& operator<<(std::ostream& os, const Complex& complex);
+    friend std::istream& operator>>(std::istream& is, Complex& complex);
+
     
 
 
